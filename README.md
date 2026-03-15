@@ -1,1 +1,1154 @@
-# website
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebForge — Premium Websites by Majdi Allkoci</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #f5f0e8;
+    --gold: #c9a84c;
+    --gold-light: #e8d48a;
+    --muted: #6b6560;
+    --accent: #1a1a2e;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    mix-blend-mode: multiply;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  nav ul {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  nav ul a {
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  nav ul a:hover { color: var(--ink); }
+
+  .nav-cta {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--paper) !important;
+    background: var(--ink);
+    padding: 0.6rem 1.4rem;
+    transition: background 0.3s !important;
+  }
+
+  .nav-cta:hover { background: var(--gold) !important; color: var(--ink) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10rem 4rem 6rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: var(--gold);
+    display: block;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 38ch;
+    margin-bottom: 3rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 1rem 2.2rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--gold); color: var(--ink); transform: translateY(-2px); }
+
+  .btn-ghost {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s;
+  }
+
+  .btn-ghost:hover { color: var(--ink); }
+  .btn-ghost::after { content: '→'; }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent) 0%, #16213e 40%, #0f3460 100%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    opacity: 0.08;
+  }
+
+  .hero-grid-cell {
+    border: 1px solid white;
+  }
+
+  .hero-mockup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(-50%, -50%) rotate(-1deg); }
+    50% { transform: translate(-50%, -54%) rotate(1deg); }
+  }
+
+  .mockup-bar {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .mockup-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+  }
+
+  .mockup-lines { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .mockup-line {
+    height: 6px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 2px;
+  }
+
+  .mockup-line.w-full { width: 100%; }
+  .mockup-line.w-3q { width: 75%; }
+  .mockup-line.w-half { width: 50%; }
+  .mockup-line.w-2q { width: 25%; }
+
+  .mockup-img {
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.3), rgba(201,168,76,0.05));
+    margin: 0.8rem 0;
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 1.5rem;
+  }
+
+  .hero-stat {
+    position: absolute;
+    bottom: 3rem;
+    right: 3rem;
+    text-align: right;
+    color: white;
+  }
+
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-top: 0.3rem;
+  }
+
+  /* TICKER */
+  .ticker {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.9rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-flex;
+    gap: 3rem;
+    animation: ticker 20s linear infinite;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .ticker-item {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .ticker-dot { color: var(--gold); font-size: 1rem; }
+
+  /* SERVICES */
+  .section { padding: 8rem 4rem; }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 5rem;
+    align-items: end;
+  }
+
+  .section-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-tag::before {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  h2 em { font-style: italic; color: var(--gold); }
+
+  .section-desc {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--muted);
+    align-self: end;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .service-card {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s, background 0.4s;
+    cursor: default;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .service-card:hover { background: #111; transform: translateY(-4px); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .service-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+
+  .service-desc {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .service-price {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* ABOUT / CEO */
+  .about {
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .ceo-portrait {
+    position: relative;
+  }
+
+  .ceo-frame {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(145deg, #1e2a45, #0d1b2a);
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ceo-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(201,168,76,0.1) 0%, transparent 70%);
+  }
+
+  .ceo-initials {
+    font-family: 'Playfair Display', serif;
+    font-size: 7rem;
+    font-weight: 900;
+    color: rgba(201,168,76,0.15);
+    z-index: 1;
+    letter-spacing: -0.05em;
+  }
+
+  .ceo-badge {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1.5rem;
+    background: var(--gold);
+    color: var(--ink);
+    padding: 1.2rem 1.5rem;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .ceo-badge-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 0.2rem;
+  }
+
+  .ceo-badge-name {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .about-content .section-tag { color: var(--gold-light); }
+  .about-content .section-tag::before { background: var(--gold-light); }
+
+  .about-content h2 { color: var(--paper); }
+
+  .about-text {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: rgba(245,240,232,0.65);
+    margin: 1.5rem 0 2.5rem;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .about-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .about-stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.4rem;
+  }
+
+  /* PROCESS */
+  .process { background: white; }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 4rem;
+    border: 1px solid #e8e4dc;
+  }
+
+  .process-step {
+    padding: 3rem 2rem;
+    border-right: 1px solid #e8e4dc;
+    position: relative;
+  }
+
+  .process-step:last-child { border-right: none; }
+
+  .process-step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #e8e4dc;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .process-step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+
+  .process-step-desc {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  .process-step::after {
+    content: '→';
+    position: absolute;
+    top: 3rem;
+    right: -0.8rem;
+    background: white;
+    color: var(--gold);
+    font-size: 1rem;
+    z-index: 1;
+    padding: 0.2rem;
+  }
+
+  .process-step:last-child::after { display: none; }
+
+  /* PRICING */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .pricing-card {
+    border: 1px solid #e0dbd2;
+    padding: 3rem 2.5rem;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .pricing-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  }
+
+  .pricing-card.featured {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .pricing-badge {
+    position: absolute;
+    top: -1px;
+    right: 2rem;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    font-weight: 500;
+  }
+
+  .pricing-tier {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .pricing-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .pricing-price sup {
+    font-size: 1.5rem;
+    vertical-align: top;
+    margin-top: 0.5rem;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .pricing-period {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .pricing-card.featured .pricing-period { color: rgba(255,255,255,0.5); }
+
+  .pricing-divider {
+    height: 1px;
+    background: #e0dbd2;
+    margin: 2rem 0;
+  }
+
+  .pricing-card.featured .pricing-divider { background: rgba(255,255,255,0.1); }
+
+  .pricing-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .pricing-features li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .pricing-card.featured .pricing-features li { color: rgba(255,255,255,0.65); }
+
+  .pricing-features li::before {
+    content: '✓';
+    color: var(--gold);
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .btn-outline {
+    display: block;
+    text-align: center;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.9rem;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-outline:hover { background: var(--ink); color: var(--paper); }
+
+  .pricing-card.featured .btn-outline {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  .pricing-card.featured .btn-outline:hover { background: var(--gold-light); }
+
+  /* TESTIMONIALS */
+  .testimonials { background: #f0ebe0; }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .testimonial-card {
+    background: var(--paper);
+    padding: 2.5rem;
+    border-left: 3px solid var(--gold);
+  }
+
+  .testimonial-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-text {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .testimonial-author {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .testimonial-company {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--ink);
+    padding: 8rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: 'WEB\AFORGE';
+    white-space: pre;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 18vw;
+    font-weight: 900;
+    color: rgba(255,255,255,0.02);
+    line-height: 0.85;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .cta-section .section-tag { color: var(--gold); justify-content: center; }
+  .cta-section .section-tag::before { background: var(--gold); }
+
+  .cta-section h2 { color: var(--paper); margin: 0 auto 1.5rem; max-width: 15ch; }
+
+  .cta-sub {
+    color: rgba(255,255,255,0.5);
+    font-size: 1rem;
+    max-width: 40ch;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+
+  .cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #050505;
+    color: rgba(255,255,255,0.35);
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .footer-logo span { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow { animation: fadeUp 0.6s 0.2s both; }
+  h1 { animation: fadeUp 0.6s 0.35s both; }
+  .hero-sub { animation: fadeUp 0.6s 0.5s both; }
+  .hero-actions { animation: fadeUp 0.6s 0.65s both; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    nav ul { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 8rem 2rem 4rem; }
+    .section { padding: 5rem 2rem; }
+    .section-header, .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .services-grid, .pricing-grid, .testimonial-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .about { padding: 5rem 2rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Web<span>Forge</span></a>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact" class="nav-cta">Get Started</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Premium Web Solutions</div>
+    <h1>Your Website,<br><em>Crafted</em><br>to Convert.</h1>
+    <p class="hero-sub">We design and build high-performance websites that attract clients, build trust, and grow your business — delivered on time, every time.</p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-primary">View Packages</a>
+      <a href="#about" class="btn-ghost">Meet the CEO</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-grid">
+      <div class="hero-grid-cell"></div><div class="hero-grid-cell"></div>
+      <div class="hero-grid-cell"></div><div class="hero-grid-cell"></div>
+      <div class="hero-grid-cell"></div><div class="hero-grid-cell"></div>
+      <div class="hero-grid-cell"></div><div class="hero-grid-cell"></div>
+      <div class="hero-grid-cell"></div><div class="hero-grid-cell"></div>
+      <div class="hero-grid-cell"></div><div class="hero-grid-cell"></div>
+      <div class="hero-grid-cell"></div><div class="hero-grid-cell"></div>
+      <div class="hero-grid-cell"></div><div class="hero-grid-cell"></div>
+      <div class="hero-grid-cell"></div><div class="hero-grid-cell"></div>
+      <div class="hero-grid-cell"></div><div class="hero-grid-cell"></div>
+      <div class="hero-grid-cell"></div><div class="hero-grid-cell"></div>
+      <div class="hero-grid-cell"></div><div class="hero-grid-cell"></div>
+    </div>
+    <div class="hero-mockup">
+      <div class="mockup-bar">
+        <div class="mockup-dot"></div>
+        <div class="mockup-dot"></div>
+        <div class="mockup-dot"></div>
+      </div>
+      <div class="mockup-img">◈</div>
+      <div class="mockup-lines">
+        <div class="mockup-line w-full"></div>
+        <div class="mockup-line w-3q"></div>
+        <div class="mockup-line w-half"></div>
+        <div class="mockup-line w-full"></div>
+        <div class="mockup-line w-2q"></div>
+      </div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">120+</div>
+      <div class="hero-stat-label">Websites Delivered</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span class="ticker-dot">◆</span> Landing Pages</span>
+    <span class="ticker-item"><span class="ticker-dot">◆</span> E-Commerce Stores</span>
+    <span class="ticker-item"><span class="ticker-dot">◆</span> Corporate Sites</span>
+    <span class="ticker-item"><span class="ticker-dot">◆</span> SaaS Platforms</span>
+    <span class="ticker-item"><span class="ticker-dot">◆</span> Portfolio Sites</span>
+    <span class="ticker-item"><span class="ticker-dot">◆</span> SEO Optimization</span>
+    <span class="ticker-item"><span class="ticker-dot">◆</span> Mobile-First Design</span>
+    <span class="ticker-item"><span class="ticker-dot">◆</span> Landing Pages</span>
+    <span class="ticker-item"><span class="ticker-dot">◆</span> E-Commerce Stores</span>
+    <span class="ticker-item"><span class="ticker-dot">◆</span> Corporate Sites</span>
+    <span class="ticker-item"><span class="ticker-dot">◆</span> SaaS Platforms</span>
+    <span class="ticker-item"><span class="ticker-dot">◆</span> Portfolio Sites</span>
+    <span class="ticker-item"><span class="ticker-dot">◆</span> SEO Optimization</span>
+    <span class="ticker-item"><span class="ticker-dot">◆</span> Mobile-First Design</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">What We Build</div>
+      <h2>Every Site is a<br><em>Statement.</em></h2>
+    </div>
+    <p class="section-desc">From sleek landing pages to full e-commerce ecosystems — we tailor every pixel to your brand and your goals. No templates. No shortcuts.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <span class="service-icon">◰</span>
+      <div class="service-title">Landing Pages</div>
+      <p class="service-desc">High-converting single pages designed to turn visitors into leads. Optimized copy, compelling design, and A/B-tested layouts.</p>
+      <div class="service-price">Starting at $299</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <span class="service-icon">◫</span>
+      <div class="service-title">Business Websites</div>
+      <p class="service-desc">Professional multi-page sites that establish credibility and communicate your value to every visitor who lands on your page.</p>
+      <div class="service-price">Starting at $799</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <span class="service-icon">◱</span>
+      <div class="service-title">E-Commerce Stores</div>
+      <p class="service-desc">Full-featured online stores with seamless checkout, product management, and payment integration built for real sales volume.</p>
+      <div class="service-price">Starting at $1,499</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT CEO -->
+<section class="section about" id="about">
+  <div class="about-inner">
+    <div class="ceo-portrait">
+      <div class="ceo-frame">
+        <div class="ceo-initials">MA</div>
+      </div>
+      <div class="ceo-badge">
+        <div class="ceo-badge-title">Founder & CEO</div>
+        <div class="ceo-badge-name">Majdi Allkoci</div>
+      </div>
+    </div>
+    <div class="about-content">
+      <div class="section-tag">The Mind Behind It</div>
+      <h2>Built on Craft.<br><em>Driven</em> by Results.</h2>
+      <p class="about-text">Majdi Allkoci founded WebForge with a single conviction: every business deserves a website that works as hard as they do. With over a decade of experience building digital products for startups, enterprises, and everything in between, Majdi leads a team obsessed with quality, clarity, and measurable outcomes.</p>
+      <p class="about-text">His approach is simple — understand your business, understand your customer, and build something that connects the two in the most powerful way possible.</p>
+      <div class="about-stats">
+        <div>
+          <div class="about-stat-num">120+</div>
+          <div class="about-stat-label">Sites Built</div>
+        </div>
+        <div>
+          <div class="about-stat-num">10+</div>
+          <div class="about-stat-label">Years Exp.</div>
+        </div>
+        <div>
+          <div class="about-stat-num">98%</div>
+          <div class="about-stat-label">Client Satisfaction</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section process">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">How We Work</div>
+      <h2>Simple Process,<br><em>Exceptional</em> Results.</h2>
+    </div>
+    <p class="section-desc">We've streamlined our workflow so you always know where your project stands — no surprises, just delivery.</p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="process-step-num">01</div>
+      <div class="process-step-title">Discovery Call</div>
+      <p class="process-step-desc">We learn about your business, goals, and audience in a focused 30-minute strategy session.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-step-num">02</div>
+      <div class="process-step-title">Design & Proposal</div>
+      <p class="process-step-desc">We present a tailored design direction and a clear scope with timeline and investment.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-step-num">03</div>
+      <div class="process-step-title">Build & Review</div>
+      <p class="process-step-desc">Your site is built and you get two rounds of revisions to ensure everything is perfect.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-step-num">04</div>
+      <div class="process-step-title">Launch & Support</div>
+      <p class="process-step-desc">We handle your launch and provide 30 days of post-launch support at no extra charge.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Investment</div>
+      <h2>Transparent<br><em>Pricing.</em></h2>
+    </div>
+    <p class="section-desc">No hidden fees. No surprise invoices. Choose a package that fits your goals and budget — or reach out for a custom quote.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-tier">Starter</div>
+      <div class="pricing-price"><sup>$</sup>299</div>
+      <div class="pricing-period">one-time payment</div>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>1-page landing site</li>
+        <li>Mobile responsive design</li>
+        <li>Contact form integration</li>
+        <li>Basic SEO setup</li>
+        <li>7-day delivery</li>
+        <li>1 round of revisions</li>
+      </ul>
+      <a href="#contact" class="btn-outline">Get Started</a>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="pricing-tier">Business</div>
+      <div class="pricing-price"><sup>$</sup>799</div>
+      <div class="pricing-period">one-time payment</div>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>Up to 5 pages</li>
+        <li>Custom design & branding</li>
+        <li>CMS integration</li>
+        <li>Full SEO optimization</li>
+        <li>14-day delivery</li>
+        <li>2 rounds of revisions</li>
+      </ul>
+      <a href="#contact" class="btn-outline">Get Started</a>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-tier">E-Commerce</div>
+      <div class="pricing-price"><sup>$</sup>1,499</div>
+      <div class="pricing-period">one-time payment</div>
+      <div class="pricing-divider"></div>
+      <ul class="pricing-features">
+        <li>Full online store</li>
+        <li>Product management system</li>
+        <li>Payment gateway setup</li>
+        <li>Inventory & order tracking</li>
+        <li>21-day delivery</li>
+        <li>3 rounds of revisions</li>
+      </ul>
+      <a href="#contact" class="btn-outline">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Social Proof</div>
+      <h2>Clients Who<br><em>Trust</em> Us.</h2>
+    </div>
+    <p class="section-desc">Don't take our word for it. Here's what business owners say after working with WebForge.</p>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">Majdi and the team delivered a stunning website in under two weeks. Our inquiry rate doubled within the first month. Absolute professionals.</p>
+      <div class="testimonial-author">Sara Kelmendi</div>
+      <div class="testimonial-company">Kelmendi Law Group</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">We needed an e-commerce overhaul fast. WebForge nailed the design, the tech, and the deadline. Our online sales are up 40% since launch.</p>
+      <div class="testimonial-author">Dritan Hoxha</div>
+      <div class="testimonial-company">Hoxha Furniture Co.</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">The most straightforward agency I've ever worked with. Clear pricing, clear process, exceptional output. I'll be a client for life.</p>
+      <div class="testimonial-author">Blerta Muji</div>
+      <div class="testimonial-company">BM Consulting</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="section-tag">Ready?</div>
+  <h2>Let's Build Something<br><em>Great</em> Together.</h2>
+  <p class="cta-sub">Book a free 30-minute strategy call with Majdi and walk away with a clear roadmap for your new website — no commitment required.</p>
+  <div class="cta-actions">
+    <a href="mailto:majdi@webforge.com" class="btn-primary" style="background:var(--gold);color:var(--ink)">Book a Free Call</a>
+    <a href="mailto:majdi@webforge.com" class="btn-ghost" style="color:rgba(255,255,255,0.5)">Email Us Instead</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Web<span>Forge</span></div>
+  <div>© 2026 WebForge. Founded by Majdi Allkoci. All rights reserved.</div>
+  <div>Tirana, Albania</div>
+</footer>
+
+</body>
+</html>
